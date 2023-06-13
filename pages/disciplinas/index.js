@@ -31,7 +31,7 @@ const index = () => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Nome</th>
+          <th>Curso</th>
           <th>Disciplina</th>
         </tr>
       </thead>
