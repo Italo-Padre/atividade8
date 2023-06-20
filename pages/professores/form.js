@@ -17,11 +17,18 @@ const form = () => {
     window.localStorage.setItem('professores', JSON.stringify(professores))
     push('/professores')
   }
+
+  function handleChange(event){
+    const name = event.target.name
+    const value = event.target.value
+    const mascara = (event.target.getAttribute('mask'))
+    setValue(name, mask(value, mascara))
+  }
   return (
 
     <>
       <Pagina>
-        <Card>
+      <Card>
           <Card.Body>
 
             <Form>
@@ -37,7 +44,10 @@ const form = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="cpf">
                     <Form.Label>Cpf</Form.Label>
-                    <Form.Control isInvalid={errors.cpf} {...register('cpf', professoresValidator.cpf)} type="text" placeholder="Cpf" />
+                    <Form.Control isInvalid={errors.cpf}
+                     {...register('cpf', professoresValidator.cpf)} 
+                     mask='999.999.999-99' onChange={handleChange}
+                     type="text" placeholder="Cpf" />
                     {
                       errors.cpf &&
                       <small>{errors.cpf.message}</small>
@@ -82,7 +92,10 @@ const form = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="cep">
                     <Form.Label>CEP</Form.Label>
-                    <Form.Control isInvalid={errors.cep} {...register('cep', professoresValidator.cep)} type="text" placeholder="CEP" />
+                    <Form.Control isInvalid={errors.cep} 
+                    {...register('cep', professoresValidator.cep)}
+                    mask='99999-999' onChange={handleChange}
+                    type="text" placeholder="CEP" />
                     {
                       errors.cep &&
                       <small>{errors.cep.message}</small>
@@ -92,7 +105,10 @@ const form = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="telefone">
                     <Form.Label>Telefone</Form.Label>
-                    <Form.Control isInvalid={errors.telefone} {...register('telefone', professoresValidator.telefone)} type="text" placeholder="Telefone" />
+                    <Form.Control isInvalid={errors.telefone}
+                     {...register('telefone', professoresValidator.telefone)} 
+                     mask='(99) 99999-9999' onChange={handleChange}
+                     type="text" placeholder="Telefone" />
                     {
                       errors.telefone &&
                       <small>{errors.telefone.message}</small>

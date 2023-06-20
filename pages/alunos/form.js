@@ -4,10 +4,11 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import alunosValidator from '../../validators/alunosValidator'
+import { mask } from 'remask'
 
 const form = () => {
   const { push } = useRouter()
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit,setValue, formState: { errors } } = useForm()
 
 
   function salvar(dados) {
@@ -15,6 +16,12 @@ const form = () => {
     alunos.push(dados)
     window.localStorage.setItem('alunos', JSON.stringify(alunos))
     push('/alunos')
+  }
+  function handleChange(event){
+    const name = event.target.name
+    const value = event.target.value
+    const mascara = (event.target.getAttribute('mask'))
+    setValue(name, mask(value, mascara))
   }
   return (
     <>
@@ -35,7 +42,11 @@ const form = () => {
                 <Col md={4}>
                   <Form.Group className="mb-3" controlId="cpf">
                     <Form.Label>Cpf</Form.Label>
-                    <Form.Control isInvalid={errors.cpf} {...register('cpf', alunosValidator.cpf)} type="text" placeholder="Cpf" />
+                    <Form.Control isInvalid={errors.cpf} mask='999.999.999-99'
+                                   {...register('cpf', alunosValidator.cpf)} 
+                                   type="text" 
+                                   placeholder="Cpf" 
+                                   onChange={handleChange}/>
                     {
                       errors.cpf &&
                       <small>{errors.cpf.message}</small>
@@ -67,7 +78,11 @@ const form = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="cep">
                     <Form.Label>CEP</Form.Label>
-                    <Form.Control isInvalid={errors.cep} {...register('cep', alunosValidator.cep)} type="text" placeholder="CEP" />
+                    <Form.Control isInvalid={errors.cep}
+                                   mask='99.999-999' 
+                                   {...register('cep', alunosValidator.cep)} 
+                                   type="text" placeholder="CEP"
+                                   onChange={handleChange} />
                     {
                       errors.cep &&
                       <small>{errors.cep.message}</small>
@@ -77,7 +92,12 @@ const form = () => {
                 <Col md={6}>
                   <Form.Group className="mb-3" controlId="telefone">
                     <Form.Label>Telefone</Form.Label>
-                    <Form.Control isInvalid={errors.telefone} {...register('telefone', alunosValidator.telefone)} type="text" placeholder="Telefone" />
+                    <Form.Control isInvalid={errors.telefone}
+                                 mask={'(99) 99999-9999'}
+                                 {...register('telefone', alunosValidator.telefone)}
+                                 type="text"
+                                  placeholder="Telefone" 
+                                  onChange={handleChange} />
                     {
                       errors.telefone &&
                       <small>{errors.telefone.message}</small>

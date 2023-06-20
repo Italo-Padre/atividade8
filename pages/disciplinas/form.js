@@ -41,17 +41,17 @@ const form = () => {
                 }
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label >Curso</Form.Label>
-                <Form.Select isInvalid={errors.curso} {...register('curso', disciplinasValidator.disciplinas)} id="curso">
-                  {cursos.map(item => (
-                    <option>{item.nome}</option>
-                  ))}
-                </Form.Select>
-                {
-                  errors.disciplinas &&
-                  <small>{errors.disciplinas.message}</small>
-                }
-              </Form.Group>
+                  <Form.Label >Curso</Form.Label>
+                  <Form.Select isInvalid={errors.curso} {...register('curso', disciplinasValidator.disciplinas)} id="curso">
+                    {cursos.map(item => (
+                      <option>{item.nome}</option>
+                    ))}
+                  </Form.Select>
+                  {
+                    errors.disciplinas &&
+                    <small>{errors.disciplinas.message}</small>
+                  }
+                </Form.Group>
               <Button onClick={handleSubmit(salvar)} type="submit">Submit</Button>
             </Form>
           </Card.Body>

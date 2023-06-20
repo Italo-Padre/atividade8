@@ -25,6 +25,12 @@ const alterar = () => {
     window.localStorage.setItem('semestres', JSON.stringify(semestres))
     push('/semestres')
   }
+  function handleChange(event){
+    const name = event.target.name
+    const value = event.target.value
+    const mascara = (event.target.getAttribute('mask'))
+    setValue(name, mask(value, mascara))
+  }
   return (
     <>
       <Pagina>
@@ -42,7 +48,10 @@ const alterar = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="caTipo">
                 <Form.Label>Data de inicio</Form.Label>
-                <Form.Control isInvalid={errors.data_inicio} {...register('data_inicio', semestresValidator.data_inicio)} type="date" placeholder="Data de inicio" />
+                <Form.Control isInvalid={errors.data_inicio}
+                 {...register('data_inicio', semestresValidator.data_inicio)}
+                 mask='99/99/9999' onChange={handleChange}
+                 type="text" placeholder="Data de inicio" />
                 {
                   errors.dataInicio &&
                   <small>{errors.data_inicio.message}</small>
@@ -50,7 +59,10 @@ const alterar = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="data_fim">
                 <Form.Label>Data do final</Form.Label>
-                <Form.Control isInvalid={errors.data_fim} {...register('data_fim', semestresValidator.data_fim)} type="date" placeholder="Data do final" />
+                <Form.Control isInvalid={errors.data_fim}
+                 {...register('data_fim', semestresValidator.data_fim)}
+                 mask='99/99/9999' onChange={handleChange}
+                 type="text" placeholder="Data do final" />
                 {
                   errors.data_fim &&
                   <small>{errors.data_fim.message}</small>
